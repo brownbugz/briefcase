@@ -8,10 +8,11 @@ class Portfolio(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     profile_link = models.CharField(max_length=100) #
     github_link = models.CharField(max_length=100)
+    email = models.EmailField()
     about_me = models.TextField(max_length=800)
 
     def __str__(self):
-        return f'{self.id}: {self.user.username} portfolio'
+        return f'{self.id}: {self.user} portfolio'
 
 #Project Model
 class Project(models.Model):
@@ -24,7 +25,7 @@ class Project(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return f'{self.portfolio.user.username} Project: {self.id} {self.project}'
+        return f'{self.portfolio.user} Project: {self.id} {self.project}'
 
 #Photo Model
 class Photo(models.Model):
