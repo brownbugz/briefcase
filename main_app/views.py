@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Project
 
 class ProjectCreate(CreateView):
@@ -9,6 +9,10 @@ class ProjectCreate(CreateView):
 class ProjectUpdate(UpdateView):
     model = Project
     fields = ['github_link', 'about_me']
+
+class ProjectDelete(DeleteView):
+    model = Project
+    sucess_url = '/projects/'
 
 def home(request):
     return render(request, 'home.html')
