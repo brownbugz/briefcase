@@ -1,10 +1,29 @@
 from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Project, Photo
 import uuid
 import boto3
 
 S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
 BUCKET = 'briefcase-group'
 
+
+
+
+#classes
+class ProjectCreate(CreateView):
+    model = Project
+    fields = ['user', 'profile_link', 'github_link', 'about_me']
+
+class ProjectUpdate(UpdateView):
+    model = Project
+    fields = ['github_link', 'about_me']
+
+class ProjectDelete(DeleteView):
+    model = Project
+    sucess_url = '/projects/'
+
+#functions
 def home(request):
     return render(request, 'home.html')
 
@@ -24,3 +43,4 @@ def add_photo(request, project_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('detail', project_id=project_id)  
+
